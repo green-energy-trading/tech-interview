@@ -1,0 +1,17 @@
+version: 0.2
+env:
+  variables:
+    ENV: test
+  parameter-store:
+    GITHUB_ACCESS_TOKEN: /github/access-token
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - git config --global url."https://${GITHUB_ACCESS_TOKEN}:@github.com/".insteadOf "https://github.com/"
+      - yarn install
+  build:
+    commands:
+      - NODE_ENV=$ENV yarn test

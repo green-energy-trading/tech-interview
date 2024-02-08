@@ -1,0 +1,63 @@
+{
+  "name": "",
+  "version": "0.0.0",
+  "description": "",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/src"
+  ],
+  "keywords": [],
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:cov": "yarn run test --coverage",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "yarn run compile",
+    "posttest": "yarn run check",
+    "build:webpack": "webpack",
+    "start": "NODE_PATH=./build/src node build/src/index.js",
+    "watch": "concurrently -k \"yarn run watch:ts\" \"yarn run watch:node\"",
+    "watch:ts": "tsc -w",
+    "watch:node": "NODE_PATH=./build/src nodemon build/src/index.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.[jt]s": [
+      "yarn fix"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/jest": "^25.1.2",
+    "babel-jest": "^25.1.0",
+    "concurrently": "^5.1.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@green-energy-trading/logger-package": "1.2.1",
+    "@pionerlabs/grpc-interceptors": "^0.2.5",
+    "@types/convict": "^4.2.1",
+    "@types/google-protobuf": "^3.7.2",
+    "@types/node": "^13.7.1",
+    "aws-xray-sdk": "^2.5.0",
+    "convict": "^5.2.0",
+    "grpc": "^1.24.2",
+    "grpc-aws-xray-interceptors": "https://github.com/green-energy-trading/grpc-aws-xray-interceptors",
+    "grpc-ts-health-check": "^2.0.5",
+    "gts": "^1.1.2",
+    "ts-genproto": "https://github.com/green-energy-trading/ts-genproto.git",
+    "typescript": "~4.5.4"
+  }
+}
