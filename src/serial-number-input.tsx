@@ -55,6 +55,7 @@ export const SerialNumberInput: React.FC<SerialNumberInputProps> = ({
   const filteredInitialValue = initialValue.filter(Boolean);
   const classes = useStyles();
   const [value, setValue] = useState<string[]>(filteredInitialValue);
+  const [lengthMismatch, setLengthMismatch] = useState<boolean>(false);
 
   // EFFECTS
 
@@ -75,6 +76,12 @@ export const SerialNumberInput: React.FC<SerialNumberInputProps> = ({
       setValue(prevValue => {
         const values = prevValue.slice();
         values[index] = nextValue;
+
+        const lengths = values.map(value => value.length);
+
+        const uniqueLengths = new Set(lengths);
+        setLengthMismatch(uniqueLengths.size > 1);
+
         return values;
       });
     },
@@ -175,6 +182,11 @@ export const SerialNumberInput: React.FC<SerialNumberInputProps> = ({
         <Alert style={{ marginBottom: 10 }} severity="info" icon={false}>
           There {extraValues === 1 ? 'is' : 'are'} {extraValues} more serial
           {pluralize('number', duplicateCount > 1)} than expected.
+        </Alert>
+      ) : null}
+      {lengthMismatch ? (
+        <Alert style={{ marginBottom: 10 }} severity="warning" icon={false}>
+          A serial number is a different length to the other serial numbers
         </Alert>
       ) : null}
 
