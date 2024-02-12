@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/await-async-query */
 import {SignatureRequest, SignatureService} from './challenge';
 
 describe('SignatureRequests', () => {
