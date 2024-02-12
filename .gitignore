@@ -89,3 +89,5 @@ jspm_packages/
 
 # TypeScript build output
 build/
+
+.idea/
